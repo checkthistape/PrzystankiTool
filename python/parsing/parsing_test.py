@@ -2,21 +2,14 @@ import requests
 from bs4 import BeautifulSoup as BS
 
 def PrzystankiParsing(link:str):
-    #output:list[str]=[]
-    #file=open("", encoding="utf-8")
-    #for 
+    output:list[str]=[]
     r=requests.get(link)
     html=BS(r.content, 'html.parser')
     for e in html.select(".stops-wrapper"):
-        title=str(e.select(".stop-container h3"))
-        title=title.replace("<h3>","")
-        title=title.replace("</h3>","")
-        title=title.replace("[","")
-        title=title.replace("]","")
-        print(title)
-    print("\n")
-    for ee in title:
-        print(ee, end="")
+        title=e.select(".stop-container h3")
+        for ee in title:
+            output.append(ee.text)
+    return output
         
 def LinksParsing(link:str, file:str):
     fileErase=open(file, "w", encoding="utf-8")
@@ -45,13 +38,6 @@ def LinksAnalyze(fileInput:str, fileOutput:str):
     i:int=0
     status:bool=False
     for e in fileIn:
-        e=e.replace('<strong class="line-title">',"")
-        e=e.replace('</strong>',"")
-        e=e.replace('[',"")
-        e=e.replace(']',"")
-        e=e.replace(' ',"")
-        e=e.replace(',',"")
-        e=e.replace('<ahref="',"")
         i+=1
         if(e=="kuuuuul\n"):
             if(i%2==0):
@@ -69,6 +55,6 @@ def LinksAnalyze(fileInput:str, fileOutput:str):
     fileIn.close()
     fileOut.close()
         
-PrzystankiParsing("https://moovitapp.com/index/pl/transport_publiczny-line-1-Krakow-5499-1373691-4689589-0")        
-#parsing("https://moovitapp.com/index/pl/transport_publiczny-lines-Krakow-5499-1373691","parsing.txt")      
-#analyze("parsing.txt","f.txt")
+
+LinksParsing("https://moovitapp.com/index/pl/transport_publiczny-lines-Krakow-5499-1373691")
+
