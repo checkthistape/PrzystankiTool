@@ -1,0 +1,4 @@
+﻿  ConsoleApplication1.cpp
+C:\Users\checkthistape\Desktop\SQLiteProject\ConsoleApplication1\ConsoleApplication1.cpp(117,14): warning C4101: 'DB': unreferenced local variable
+LINK : warning LNK4067: ambiguous entry point; selected 'mainCRTStartup'
+  ConsoleApplication1.vcxproj -> C:\Users\checkthistape\Desktop\SQLiteProject\ConsoleApplication1\x64\Debug\ConsoleApplication1.exe
