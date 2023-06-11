@@ -1,4 +1,0 @@
-﻿  przystankitool.cpp
-C:\Users\admin\Desktop\PrzystankiTool\PrzystankiTool\headers\txtworkingclass.h(17,20): warning C4305: 'initializing': truncation from '__int64' to 'int'
-C:\Users\admin\Desktop\PrzystankiTool\PrzystankiTool\headers\txtworkingclass.h(17,22): warning C4309: 'initializing': truncation of constant value
-  przystankitool.vcxproj -> C:\Users\admin\Desktop\PrzystankiTool\PrzystankiTool\x64\Debug\przystankitool.exe
