@@ -1,3 +1,4 @@
 C:\Users\checkthistape\Desktop\SQLiteProject\ConsoleApplication1\x64\Debug\ConsoleApplication1.exe
 C:\Users\checkthistape\Desktop\PrzystankiTool\SQLiteProject\sqlitedbcreator\x64\Debug\sqlitefilecreator.exe
 D:\PrzystankiTool\przystankitool\tool_vspack\x64\Debug\sqlitefilecreator.exe
+C:\Users\checkthistape\Desktop\PrzystankiTool\przystankitool\tool_vspack\x64\Debug\sqlitefilecreator.exe

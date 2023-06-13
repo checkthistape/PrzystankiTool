@@ -182,8 +182,7 @@ void Searching(const char* s, string table, string findable) {
 
 int main()
 {
-    const char* dir = "D:\\PrzystankiTool\\przystankitool\\sqlite\\przystanki.db";
-
+    const char* dir = "C:\\Users\\checkthistape\\Desktop\\PrzystankiTool\\przystankitool\\sqlite\\przystanki.db";
     sqlite3* DB;
     string sql;
     /*
@@ -220,8 +219,10 @@ int main()
         }
         if (sql == "*trams") { sql = "SELECT name FROM SQLITE_SCHEMA WHERE name LIKE \"t_%\";"; selectData(dir, sql); }
         if (sql == "*buses") { sql = "SELECT name FROM SQLITE_SCHEMA WHERE name LIKE \"b_%\";"; selectData(dir, sql); }
-        if (sql[0] == 't' && sql.size()<=3) { std::cout<<"You r searching for tram"; }
-        if (sql[0] == 'b' && sql.size()<=4) { std::cout << "You r searching for bus"; }
+        if (sql[0] == 't' && sql.size()<=3) { std::cout<<"You r searching for "<< sql <<" tram\n"; selectData(dir, "SELECT stop FROM " + sql);}
+        if (sql[0] == 't' && sql.size()>3) { std::cout << "We dont have " << sql << " tram line in our db\n"; }
+        if (sql[0] == 'b' && sql.size() <= 4) { std::cout << " You r searching for " << sql << " bus\n"; selectData(dir, "SELECT stop FROM " + sql); }
+        if (sql[0] == 'b' && sql.size()>4) { std::cout << "We dont have " << sql << " bus line in our db\n"; }
     }
 
 }
