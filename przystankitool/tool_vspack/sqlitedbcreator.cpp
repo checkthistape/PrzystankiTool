@@ -59,6 +59,7 @@ static int insertData(const char* s, string sql) {
 }
 
 static int callback(void* NotUsed, int argc, char** argv, char** azColname) {
+    std::cout << "\n\n argv: " << argv << "argc: " << argc << "\n\n";
     std::cout << "_______________________________________" << std::endl;
     std::cout << std::endl;
     for (int i = 0; i < argc; i++) {
@@ -73,8 +74,10 @@ static int callback(void* NotUsed, int argc, char** argv, char** azColname) {
 static int selectData(const char* s, string sql) {
     sqlite3* DB;
     int exit = sqlite3_open(s, &DB);
-
-    sqlite3_exec(DB, sql.c_str(), callback, NULL, NULL);
+    char* mesEr;
+    
+    exit = sqlite3_exec(DB, sql.c_str(), callback, NULL, &mesEr);
+    if (exit != SQLITE_OK) { return 12; }
     return 0;
 }
 
@@ -182,7 +185,7 @@ void Searching(const char* s, string table, string findable) {
 
 int main()
 {
-    const char* dir = "C:\\Users\\checkthistape\\Desktop\\PrzystankiTool\\przystankitool\\sqlite\\przystanki.db";
+    const char* dir = "C:\\Users\\admin\\Desktop\\PrzystankiTool\\przystankitool\\sqlite\\przystanki.db";
     sqlite3* DB;
     string sql;
     /*
@@ -201,6 +204,12 @@ int main()
 
 
     // const char* dir = "c:\\Users\\checkthistape\\Desktop\\PrzystankiTool\\sqlitedbcreator\\przystanki.db";
+
+    for (int i = 0; i < 70; i++) {
+        string t = "SELECT id FROM t" + to_string(i) + " WHERE stop=\'Biprostal\'";
+        std::cout << t << "\n\n";
+        selectData(dir, t);
+    }
 
     std::cout << "*exit to exit the program" << std::endl;
     std::cout << "*help to show all things you can do" << std::endl;
@@ -221,7 +230,7 @@ int main()
         if (sql == "*buses") { sql = "SELECT name FROM SQLITE_SCHEMA WHERE name LIKE \"b_%\";"; selectData(dir, sql); }
         if (sql[0] == 't' && sql.size()<=3) { std::cout<<"You r searching for "<< sql <<" tram\n"; selectData(dir, "SELECT stop FROM " + sql);}
         if (sql[0] == 't' && sql.size()>3) { std::cout << "We dont have " << sql << " tram line in our db\n"; }
-        if (sql[0] == 'b' && sql.size() <= 4) { std::cout << " You r searching for " << sql << " bus\n"; selectData(dir, "SELECT stop FROM " + sql); }
+        if (sql[0] == 'b' && sql.size()<=4) { std::cout << " You r searching for " << sql << " bus\n"; selectData(dir, "SELECT stop FROM " + sql); }
         if (sql[0] == 'b' && sql.size()>4) { std::cout << "We dont have " << sql << " bus line in our db\n"; }
     }
 
