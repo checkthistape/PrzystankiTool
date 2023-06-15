@@ -1,4 +1,6 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (ConsoleApplication1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   sqlitedbcreator.cpp
-C:\Users\admin\Desktop\PrzystankiTool\przystankitool\tool_vspack\sqlitedbcreator.cpp(189,14): warning C4101: 'DB': unreferenced local variable
-  ConsoleApplication1.vcxproj -> C:\Users\admin\Desktop\PrzystankiTool\przystankitool\tool_vspack\x64\Debug\sqlitefilecreator.exe
+C:\Users\checkthistape\Desktop\PrzystankiTool\przystankitool\tool_vspack\sqlitedbcreator.cpp(212,14): warning C4101: 'DB': unreferenced local variable
+C:\Users\checkthistape\Desktop\PrzystankiTool\przystankitool\tool_vspack\sqlitedbcreator.cpp(208): warning C4715: 'Checking': not all control paths return a value
+LINK : warning LNK4067: ambiguous entry point; selected 'mainCRTStartup'
+  ConsoleApplication1.vcxproj -> C:\Users\checkthistape\Desktop\PrzystankiTool\przystankitool\tool_vspack\x64\Debug\sqlitefilecreator.exe

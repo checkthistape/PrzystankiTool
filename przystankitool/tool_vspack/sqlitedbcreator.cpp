@@ -5,6 +5,9 @@
 #include <vector>
 using namespace std;
 
+static std::string request = "";
+static std::string line = "";
+
 static int createDB(const char* s)
 {
     sqlite3* DB;
@@ -59,8 +62,10 @@ static int insertData(const char* s, string sql) {
 }
 
 static int callback(void* NotUsed, int argc, char** argv, char** azColname) {
-    std::cout << "\n\n argv: " << argv << "argc: " << argc << "\n\n";
+    //if (request != "") { std::cout << request << "\n"; }
+    if (line != "") { std::cout << line << "\n"; }
     std::cout << "_______________________________________" << std::endl;
+    
     std::cout << std::endl;
     for (int i = 0; i < argc; i++) {
         //cout << azColname[i] << ": " << argv[i] << endl;
@@ -68,6 +73,7 @@ static int callback(void* NotUsed, int argc, char** argv, char** azColname) {
         if (i == argc - 1) { std::cout << "_______________________________________" << std::endl; }
 
     }
+   
     return 0;
 }
 
@@ -75,9 +81,22 @@ static int selectData(const char* s, string sql) {
     sqlite3* DB;
     int exit = sqlite3_open(s, &DB);
     char* mesEr;
+    exit = sqlite3_exec(DB, sql.c_str(), NULL, NULL, &mesEr);
+    if (exit == 1) { return 0; }
+    //std::cout << "___________________________\n";
+    //if (exit == 0) { std::cout << sql << "\n"; }
     
     exit = sqlite3_exec(DB, sql.c_str(), callback, NULL, &mesEr);
-    if (exit != SQLITE_OK) { return 12; }
+    
+    
+    //std::cout << "callback:" << callback << " ";
+    
+    //if (exit == SQLITE_ERROR) { std::cout << "exitReturn "; return 0; }
+    //std::cout << sql << "\n";
+    //std::cout << "Exit: " << exit << "\n";
+    //std::cout << "___________________________";
+    request = "";
+    line = "";
     return 0;
 }
 
@@ -183,9 +202,13 @@ void Searching(const char* s, string table, string findable) {
     sqlite3_exec(DB, sql.c_str(), callback, NULL, NULL);
 }
 
+int Checking(const char* d) {
+    std::fstream db(d);
+    if (!db.is_open()) { std::cout << "Your file or database does not exist, try another adress!\n"; return -1; }
+}
 int main()
 {
-    const char* dir = "C:\\Users\\admin\\Desktop\\PrzystankiTool\\przystankitool\\sqlite\\przystanki.db";
+    const char* dir = "C:\\Users\\checkthistape\\Desktop\\PrzystankiTool\\przystankitool\\sqlite\\przystanki.db";
     sqlite3* DB;
     string sql;
     /*
@@ -199,16 +222,16 @@ int main()
     }
     else { cout << "DaaamnBadRecords created!" << endl; }*/
 
-    std::fstream db(dir);
-    if (!db.is_open()) { std::cout << "Your file or database does not exist, try another adress!\n"; return 1; }
+    Checking(dir);
 
 
     // const char* dir = "c:\\Users\\checkthistape\\Desktop\\PrzystankiTool\\sqlitedbcreator\\przystanki.db";
 
-    for (int i = 0; i < 70; i++) {
-        string t = "SELECT id FROM t" + to_string(i) + " WHERE stop=\'Biprostal\'";
-        std::cout << t << "\n\n";
-        selectData(dir, t);
+    for (int i = 1; i < 70; i++) {
+        line = "t" + to_string(i);
+        request = "SELECT id, stop FROM " + line + " WHERE stop=\'Biprostal\'";
+       // std::cout << t << "\n\n";
+        selectData(dir, request);
     }
 
     std::cout << "*exit to exit the program" << std::endl;
